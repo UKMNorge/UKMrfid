@@ -21,7 +21,10 @@ class UKMrfid {
 
 		$log = new \Monolog\Logger('UKMrfid');
 		try {
-			$fileHandler = new \Monolog\Handler\StreamHandler('/tmp/ukmrfid/app.log', \Monolog\Logger::INFO);
+			// If we get a warning, log the entire request.
+			// If there are only INFO's or lower, don't log to file.
+			$fileHandler = new \Monolog\Handler\FingersCrossedHandler(new \Monolog\Handler\StreamHandler('/tmp/ukmrfid/app.log', \Monolog\Logger::DEBUG), \Monolog\Logger::WARNING);
+
 			$browserConsoleHandler = new \Monolog\Handler\browserConsoleHandler();
 
 			// Default log level for the Slack Handler to be triggered is CRITICAL

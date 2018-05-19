@@ -4,6 +4,10 @@ Identifiserings-verktøy for landsbyen under UKM-festivalen. Deltakerne får en 
 
 Dette gjør det blant annet mye enklere ved uforutsette hendelser som branntilløp å ha kontroll på hvem som er tilstede. Det viktigste med dette systemet er ikke å kunne nekte folk adgang, men å ha kontroll på hvem som er til stede.
 
+## Setup-guide
+- Sjekk at SSL-sertifikat er generert med wildcard eller rfid.ukm.dev.
+- Sjekk at UKMconfig.inc.php har fått `SLACK_UKMRFID_WEBHOOK_URL` og `SLACK_UKMRFID_CHANNEL` definert.
+- Sjekk at /tmp er skrivbart for alle ( `chmod -R 777 /tmp` )
 
 ## Funksjonsbeskrivelse
 
