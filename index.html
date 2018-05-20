@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>UKMrfid</title>
+		
+		<script src="js/jquery-3.3.1.min.js"></script>
+		<script src="js/jquery-ui.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<!-- <script src="js/emitter.js"></script> -->
+		<script src="js/auth.js"></script>
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/jquery-ui.min.css" />
+		<link rel="stylesheet" href="css/font.css" />
+		
+		<style>
+			.jumbotron {
+				background: #f26d15;
+				color: #fff;
+			}
+			h1.theQuestion {
+				margin-bottom: 5rem;
+				margin-top: 5rem;
+				font-size: 7rem;
+				text-rendering: optimizeLegibility;
+				font-variation-settings: initial;
+			}			
+			.icon {
+				font-size: 21rem;
+			}
+			.icon-container {
+				text-align: center;
+			}
+			
+			.footer {
+				position: absolute;
+				bottom: 0;
+				right: 0;
+				padding: 1em;
+			}
+			.container-footer {
+				position: absolute;
+				bottom: 2.8rem;
+			}			
+			.counter {
+				font-size: 4em;
+				font-weight: bold;
+				margin-top: 1rem;
+			}
+		</style>
+	</head>
+	
+
+	<body>
+		<div class="" id="viewStart">
+			<div class="jumbotron jumbotron-fluid">
+				<div class="container">
+					<h1 class="display-4">Bip armbåndet mot leseren</h1>
+				</div>
+			</div>
+		</div>
+		<!-- <div class="ThumbbackView" id="viewStart">
+			<div class="jumbotron jumbotron-fluid">
+				<div class="container">
+					<h1 class="display-4">Skriv inn spørsmål</h1>
+					<p class="lead">Hold det kort så folk rekker å lese i forbifarten. Husk å ta bilde av resultatsiden</p>
+					<form class="thumbback">
+						<div class="input-group input-group-lg">
+							<input type="text" class="form-control" id="question" value="Hva synes du om forestillingen?" />
+						</div>
+						
+						<div class="input-group mt-4">
+							<button type="submit" class="btn btn-large btn-light">Start</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<h3 class="text-muted">Slik bruker du denne siden</h3>
+						<ol>
+							<li>
+								Skriv inn spørsmålet, og trykk "start"
+							</li>
+							<li>
+								Trykk "f"-tasten for å åpne siden i fullskjerm-modus
+							</li>
+							<li>
+								Samle inn tilbakemeldinger ved å bruke piltaster eller museknapper
+								<br />
+								<small>
+									Pil opp: tommel opp
+									<br />
+									Pil ned: tommel ned
+								</small>
+							</li>
+							<li>
+								Avslutt innsamlingen ved å trykke "avslutt" nede i høyre hjørne, eller esc-tasten
+								<br />
+								<small>Hvis du gjør innsamlingen i fullskjerm-modus må du trykke 2 ganger på esc-tasten for å avslutte</small>
+							</li>
+							<li>
+								<strong>Ta bilde av resultatet</strong>
+							</li>
+							<li>
+								For å starte ny innsamling, oppdater nettsiden
+							</li>
+						</ol>
+					</div>
+					
+					<div align="right">
+						<img src="logo.png" class="container-footer" width="80" />
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="ThumbbackView" id="viewQuestion" style="display:none">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12">
+						<h1 class="theQuestion" align="center"></h1>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-6 icon-container">
+						<div id="showUp" class="icon icon-thumbs-up"></div>
+					</div>
+					<div class="col-6 icon-container">
+						<div id="showDown" class="icon icon-thumbs-down"></div>
+					</div>
+				</div>
+			</div>
+			<footer class="footer">
+				<button class="btn btn-outline-primary tbAction" data-tb-action="stop">Avslutt</button>
+			</footer>
+		</div>
+
+		<div class="ThumbbackView" id="viewSummary" style="display:none">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12">
+						<h1 class="theQuestion" align="center"></h1>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-6 icon-container">
+						<div id="showUp" class="icon icon-thumbs-up"></div>
+						<div id="count-up" class="counter">0</div>
+					</div>
+					<div class="col-6 icon-container">
+						<div id="showDown" class="icon icon-thumbs-down"></div>
+						<div id="count-down" class="counter">0</div>
+					</div>
+				</div>
+			</div>
+		</div> -->
+	</body>
+</html>
