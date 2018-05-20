@@ -2,6 +2,8 @@
 
 namespace UKMNorge;
 
+require_once "GithubLinkProcessor.php";
+
 class UKMrfid {
 	/**
 	 * Returns true if we are in devmode, false if not.
@@ -28,7 +30,9 @@ class UKMrfid {
 			$browserConsoleHandler = new \Monolog\Handler\browserConsoleHandler();
 
 			// Default log level for the Slack Handler to be triggered is CRITICAL
-			$slackHandler = new \Monolog\Handler\SlackWebhookHandler(SLACK_UKMRFID_WEBHOOK_URL, SLACK_UKMRFID_CHANNEL);
+			$slackHandler = new \Monolog\Handler\SlackWebhookHandler(SLACK_UKMRFID_WEBHOOK_URL, SLACK_UKMRFID_CHANNEL, 'UKMrfid');
+			// Add links to the source code for Slack-integration.
+			$slackHandler->pushProcessor(new \UKMNorge\GithubLinkProcessor('AsgeirSH', 'UKMrfid'));
 
 			// Add handlers - the last one added will be the first to receive events.
 			$log->pushHandler($fileHandler);
