@@ -26,10 +26,10 @@ class GithubLinkProcessor
 		$file = $record['extra']['file'];
 		$line = $record['extra']['line'];
 
-		$strip_start = strpos($file, $this->root_folder);
+		$strip_start = strpos($file, $this->root_folder) + strlen($this->root_folder)+1;
 		$file = substr($file, $strip_start);
 
-		$URL = "http://github.com/".$this->username."/".$this->repository."/blob/master/".$file."#".$line;
+		$URL = "http://github.com/".$this->username."/".$this->repository."/blob/master/".$file."#L".$line;
 
 		$record['message'] .= " \nLogged at <".$URL.">";
 
