@@ -10,6 +10,7 @@
 		<!-- <script src="js/emitter.js"></script> -->
 		<script src="js/UKMrfid.app.js"></script>
 		<script src="js/auth.js"></script>
+		<script src="js/sha1.min.js"></script>
 		<link rel="stylesheet" href="css/bootstrap.min.css" />
 		<link rel="stylesheet" href="css/jquery-ui.min.css" />
 		<link rel="stylesheet" href="css/font.css" />
@@ -56,103 +57,63 @@
 			  /* bring your own prefixes */
 			  transform: translate(0%, -100%);
 			}
-
-			.glyphicon-refresh-animate {
-			    -animation: spin .7s infinite linear;
-			    -webkit-animation: spin2 .7s infinite linear;
-			}
-
-			@-webkit-keyframes spin2 {
-			    from { -webkit-transform: rotate(0deg);}
-			    to { -webkit-transform: rotate(360deg);}
-			}
-
-			@keyframes spin {
-			    from { transform: scale(1) rotate(0deg);}
-			    to { transform: scale(1) rotate(360deg);}
-			}
 		</style>
 	</head>
-	
 
 	<body>
-		<div class="UKMrfidView" id="viewStart">
+		<div class="UKMrfidView" id="viewStart" style="display:none;">
 			<div class="jumbotron jumbotron-fluid centered">
 				<div class="container">
-					<h1 class="display-4">
-					<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>Registrerer enheten...</h1>
+					<h1 class="display-4">Registrerer enheten...</h1>
 					<p class="lead" id="registrationStatus">
 					</p>
 
 				</div>
 			</div>
 		</div>
-		<div class="UKMrfidView" id="viewQuestion">
-			<div class="jumbotron jumbotron-fluid">
+		<div class="UKMrfidView" id="viewRegisteredSuccess" style="display:none;">
+			<div class="jumbotron jumbotron-fluid centered">
 				<div class="container">
-					<h1 class="display-4">Skriv inn spørsmål</h1>
-					<p class="lead">Hold det kort så folk rekker å lese i forbifarten. Husk å ta bilde av resultatsiden</p>
-					
-				</div>
-			</div>
-			
-			<div class="container">
-				<div class="row">
-					<div class="col-12">
-						<h3 class="text-muted">Slik bruker du denne siden</h3>
-						<ol>
-							<li>
-								Skriv inn spørsmålet, og trykk "start"
-							</li>
-						</ol>
-					</div>
-					
-					<div align="right">
-						<img src="logo.png" class="container-footer" width="80" />
-					</div>
+					<h1 class="display-4">Stasjon må godkjennes</h1>
+					<p class="lead">Stasjonen er registrert, og venter nå på godkjenning av en administrator. Oppgi koden under til support.</p>
+					<span id="stationCode"></span>
 				</div>
 			</div>
 		</div>
-		<!-- 
-		<div class="ThumbbackView" id="viewQuestion" style="display:none">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-12">
-						<h1 class="theQuestion" align="center"></h1>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-6 icon-container">
-						<div id="showUp" class="icon icon-thumbs-up"></div>
-					</div>
-					<div class="col-6 icon-container">
-						<div id="showDown" class="icon icon-thumbs-down"></div>
-					</div>
+		<div class="UKMrfidView" id="viewRegisteredFail" style="display:none;">
+			<div class="jumbotron jumbotron-fluid centered">
+				<div class="container">
+					<h1 class="display-4">Stasjonen feilet å registrere seg</h1>
+					<p class="lead">Oops! Noe gikk galt med registreringen. Oppgi følgende feilmelding til support:</p>
+					<span id="registrationError">Fikk ikke kontakt med server!
+					</p>
 				</div>
 			</div>
-			<footer class="footer">
-				<button class="btn btn-outline-primary tbAction" data-tb-action="stop">Avslutt</button>
-			</footer>
 		</div>
-
-		<div class="ThumbbackView" id="viewSummary" style="display:none">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-12">
-						<h1 class="theQuestion" align="center"></h1>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-6 icon-container">
-						<div id="showUp" class="icon icon-thumbs-up"></div>
-						<div id="count-up" class="counter">0</div>
-					</div>
-					<div class="col-6 icon-container">
-						<div id="showDown" class="icon icon-thumbs-down"></div>
-						<div id="count-down" class="counter">0</div>
-					</div>
+		<div class="UKMrfidView" id="viewReadyForBeeping" style="display:none;">
+			<div class="jumbotron jumbotron-fluid centered">
+				<div class="container">
+					<h1 class="display-4">Scann kodebrikke</h1>
+					<p class="lead"></p>
+					<form id="rfidValueForm">
+						<input type="text" id="rfidValue" name="rfidValue" class="form-control" autocomplete="off" style="visibility: visible;">
+					</form>
 				</div>
 			</div>
-		</div> -->
+		</div>
+		<div class="UKMrfidView" id="viewBeepedGreen" style="display:none;">
+			<div class="jumbotron jumbotron-fluid centered" style="background-color: green;">
+				<div class="container">
+					<h1 class="display-4">Scann OK - Grønt lys!</h1>
+				</div>
+			</div>
+		</div>
+		<div class="UKMrfidView" id="viewBeepedRed" style="display:none;">
+			<div class="jumbotron jumbotron-fluid centered" style="background-color: red;">
+				<div class="container">
+					<h1 class="display-4">Ooops, du har ikke tilgang!</h1>
+				</div>
+			</div>
+		</div>
 	</body>
 </html>
