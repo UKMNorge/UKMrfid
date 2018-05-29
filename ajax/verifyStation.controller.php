@@ -1,7 +1,9 @@
 <?php
 
-// Stations er definert i api.php
-if ( $stations->isVerified( $_POST['guid'] ) ) {
+// Station er definert i api.php
+global $station;
+
+if ( $station->isVerified( $_POST['guid'] ) ) {
 	$JSON->success = true;
 	$JSON->message = "Stasjon godkjent!";
 } else {

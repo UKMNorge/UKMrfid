@@ -1,7 +1,8 @@
 <?php
 
-// Stations er definert i api.php
-$result = $stations->registerNew($_POST['guid']);
+// Station er definert i api.php
+global $station;
+$result = $station->registerNew($_POST['guid']);
 
 if ($result) {
 	$JSON->success = true;
