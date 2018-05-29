@@ -1,8 +1,8 @@
 <?php
 
 // For debug-purposes only!
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+/*error_reporting(E_ALL);
+ini_set('display_errors', 1);*/
 
 require __DIR__ . '/vendor/autoload.php';
 require_once('UKMrfid.php');
@@ -17,15 +17,14 @@ $JSON = new stdClass();
 if('POST' == $_SERVER['REQUEST_METHOD']) {
 	$endpoint = $_POST['endpoint'];
 	$guid = $_POST['guid'];
-	// Last inn listen over godkjente stasjoner.
-	$stations = new \UKMNorge\UKMrfid\Station($guid);
+	$station = new \UKMNorge\UKMrfid\Station($guid);
 
 	try {
 		// Hvis endpoint er "registerStation" eller "verifyStation", trenger vi ikke autentisering av GUID.
 		if ('registerStation' == $endpoint || 'verifyStation' == $endpoint) {
 			require_once('ajax/'. $endpoint .'.controller.php');	
 		}
-		elseif( $stations->isVerified( $_POST['guid'] ) ) {
+		elseif( $station->isVerified( $_POST['guid'] ) ) {
 			$controller = dirname( __FILE__ ) .'/ajax/'. $endpoint .'.controller.php';
 			if( !file_exists( $controller ) ) {
 				$JSON->success = false;
