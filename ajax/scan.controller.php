@@ -12,7 +12,7 @@ $rfid = $_POST['rfidValue'];
 
 // Lag hash av rfid og IP for å sjekke om dette er en OK request
 $hash = sha1($rfid + $guid);
-if ( $hash != $_POST['hash'] ) {
+if ( false && $hash != $_POST['hash'] ) {
 	$JSON->success = false;
 	$JSON->message = "RFID og GUID-hash matcher ikke!";
 	$JSON->data['lokalHash'] = $hash;
