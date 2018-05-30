@@ -1,11 +1,14 @@
 <?php
 
 // For debug-purposes only!
-/*error_reporting(E_ALL);
-ini_set('display_errors', 1);*/
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+use Exception;
 
 require '../vendor/autoload.php';
 require_once('../UKMrfid.php');
+require_once('UKM/RFID/scanner.collection.php');
 
 $log = UKMNorge\UKMrfid::getLogger();
 
@@ -17,14 +20,15 @@ $JSON = new stdClass();
 if('POST' == $_SERVER['REQUEST_METHOD']) {
 	$endpoint = $_POST['endpoint'];
 	$guid = $_POST['guid'];
-	$station = new \UKMNorge\UKMrfid\Station($guid);
+	$scanners = new \UKMNorge\RFID\ScannerColl();
+	$scanner = $scanners->getByGUID($guid);
 
 	try {
 		// Hvis endpoint er "registerStation" eller "verifyStation", trenger vi ikke autentisering av GUID.
 		if ('registerStation' == $endpoint || 'verifyStation' == $endpoint) {
 			require_once('../ajax/'. $endpoint .'.controller.php');	
 		}
-		elseif( $station->isVerified( $_POST['guid'] ) ) {
+		elseif( $scanner->isVerified() ) {
 			$controller = '../ajax/'. $endpoint .'.controller.php';
 			if( !file_exists( $controller ) ) {
 				$JSON->success = false;
