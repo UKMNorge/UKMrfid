@@ -1,9 +1,14 @@
 <?php
 
 require_once('UKM/RFID/person.collection.php');
+require_once('UKM/RFID/scan.class.php');
+
+use UKMNorge\RFID\PersonColl;
+use UKMNorge\RFID\Scan;
 
 global $scanner;
 global $guid;
+
 
 // Debug
 $JSON->data = $_POST;
