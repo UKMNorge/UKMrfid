@@ -4,8 +4,8 @@
 /*error_reporting(E_ALL);
 ini_set('display_errors', 1);*/
 
-require __DIR__ . '/vendor/autoload.php';
-require_once('UKMrfid.php');
+require '../vendor/autoload.php';
+require_once('../UKMrfid.php');
 
 $log = UKMNorge\UKMrfid::getLogger();
 
@@ -22,16 +22,16 @@ if('POST' == $_SERVER['REQUEST_METHOD']) {
 	try {
 		// Hvis endpoint er "registerStation" eller "verifyStation", trenger vi ikke autentisering av GUID.
 		if ('registerStation' == $endpoint || 'verifyStation' == $endpoint) {
-			require_once('ajax/'. $endpoint .'.controller.php');	
+			require_once('../ajax/'. $endpoint .'.controller.php');	
 		}
 		elseif( $station->isVerified( $_POST['guid'] ) ) {
-			$controller = dirname( __FILE__ ) .'/ajax/'. $endpoint .'.controller.php';
+			$controller = '../ajax/'. $endpoint .'.controller.php';
 			if( !file_exists( $controller ) ) {
 				$JSON->success = false;
 				$JSON->message = 'Mangler kontroller '.$controller.'!';
 			} 
 			else {
-				require_once('ajax/'. $endpoint .'.controller.php');
+				require_once('../ajax/'. $endpoint .'.controller.php');
 			}
 		}
 		else {

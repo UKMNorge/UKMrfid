@@ -10,8 +10,7 @@
  */
 var Auth = function ( ) {
 
-	// TODO: dev vs. prod
-	var APIurl = "https://rfid.ukm.dev/api.php";
+	var APIurl = "/api/";
 
 	var GUID = null;
 
