@@ -8,7 +8,7 @@ require '../vendor/autoload.php';
 require_once('../UKMrfid.php');
 
 require_once('UKMconfig.inc.php');
-require_once( UKMRFID .'/class/postgres.class.php');
+require_once('UKM/postgres.class.php');
 require_once('UKM/RFID/scanner.collection.php');
 
 POSTGRES::connect( PG_RFID_USER, PG_RFID_PASS, PG_RFID_DB );
