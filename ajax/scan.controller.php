@@ -3,6 +3,7 @@
 require_once('UKM/RFID/person.collection.php');
 
 global $scanner;
+global $guid;
 
 // Debug
 $JSON->data = $_POST;
@@ -10,10 +11,11 @@ $JSON->data = $_POST;
 $rfid = $_POST['rfidValue'];
 
 // Lag hash av rfid og IP for å sjekke om dette er en OK request
-$hash = sha1($rfid + $_SERVER['REMOTE_ADDR']);
+$hash = sha1($rfid + $guid);
 if ( $hash != $_POST['hash'] ) {
 	$JSON->success = false;
-	$JSON->message = "RFID og IP-hash matcher ikke!";
+	$JSON->message = "RFID og GUID-hash matcher ikke!";
+	$JSON->data['lokalHash'] = $hash;
 } 
 else if( PersonColl::hasRFID($rfid) ) {
 	$person = PersonColl::getByRFID($rfid);
