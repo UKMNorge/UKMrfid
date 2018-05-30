@@ -3,12 +3,10 @@
 require_once('UKM/RFID/person.collection.php');
 require_once('UKM/RFID/scan.class.php');
 
-use UKMNorge\RFID\PersonColl;
 use UKMNorge\RFID\Scan;
 
 global $scanner;
 global $guid;
-
 
 // Debug
 $JSON->data = $_POST;
@@ -19,7 +17,7 @@ $rfid = $_POST['rfidValue'];
 $hash = sha1($rfid + $guid);
 if ( true || $hash == $_POST['hash'] ) {
 	try {
-		$scan = Scan::create($rfid, $scanner->getDirection(), $scanner->getArea());
+		$scan = Scan::create($rfid, $scanner->getDirection(), $scanner->getAreaId());
 		$JSON->success = true;
 	} 
 	catch (Exception $e) {
