@@ -4,6 +4,16 @@
 		<meta charset="UTF-8">
 		<title>UKMrfid</title>
 		
+		<script>
+			function playAllowed(){
+				var audio = document.getElementById("allowedAudio");
+				audio.play();
+			}
+			function playDenied(){
+				var audio = document.getElementById("deniedAudio");
+				audio.play();
+			}
+		</script>
 		<script src="../js/jquery-3.3.1.min.js"></script>
 		<script src="../js/jquery-ui.min.js"></script>
 		<script src="../js/bootstrap.min.js"></script>
@@ -61,6 +71,9 @@
 	</head>
 
 	<body>
+		<audio id="allowedAudio" src="../audio/success.mp3"></audio>
+		<audio id="deniedAudio" src="../audio/error.mp3"></audio>
+
 		<div class="UKMrfidView" id="viewStart" style="display:none;">
 			<div class="jumbotron jumbotron-fluid centered">
 				<div class="container">
