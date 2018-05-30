@@ -81,12 +81,13 @@ $(document).ready(function() {
 		e.preventDefault();
 		var rfidValue = $("#rfidValue").val();
 		console.log("Scanned: "+rfidValue);
-		
+
 		$("#rfidValueForm")[0].reset();
 
 		Auth.scan(rfidValue, function(response) {
 			console.log(response.data);
 			if(response.success) {
+				playAllowed();
 				UKMrfidGUI.showView('BeepedGreen');
 				setTimeout(function() {
 					UKMrfidGUI.showView('ReadyForBeeping');
@@ -94,6 +95,7 @@ $(document).ready(function() {
 				}, 1000);
 			}
 			else {
+				playDenied();
 				UKMrfidGUI.showView('BeepedRed');
 				setTimeout(function() {
 					UKMrfidGUI.showView('ReadyForBeeping');
