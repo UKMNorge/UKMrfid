@@ -24,14 +24,13 @@ if('POST' == $_SERVER['REQUEST_METHOD']) {
 	$endpoint = $_POST['endpoint'];
 	$guid = $_POST['guid'];
 	$scanners = new \UKMNorge\RFID\ScannerColl();
-	$scanner = $scanners->getByGUID($guid);
 
 	try {
 		// Hvis endpoint er "registerStation" eller "verifyStation", trenger vi ikke autentisering av GUID.
 		if ('registerStation' == $endpoint || 'verifyStation' == $endpoint) {
 			require_once('../ajax/'. $endpoint .'.controller.php');	
 		}
-		elseif( $scanner->isVerified() ) {
+		elseif( $scanner = $scanners->getByGUID($guid) && $scanner->isVerified() ) {
 			$controller = '../ajax/'. $endpoint .'.controller.php';
 			if( !file_exists( $controller ) ) {
 				$JSON->success = false;
