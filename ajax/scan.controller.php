@@ -14,10 +14,8 @@ $hash = sha1($rfid + $_SERVER['REMOTE_ADDR']);
 if ( $hash != $_POST['hash'] ) {
 	$JSON->success = false;
 	$JSON->message = "RFID og IP-hash matcher ikke!";
-	break;
-}
-
-if( PersonColl::hasRFID($rfid) ) {
+} 
+else if( PersonColl::hasRFID($rfid) ) {
 	$person = PersonColl::getByRFID($rfid);
 	try {
 		$scan = Scan::create($rfid, $scanner->getDirection(), $scanner->getArea());
