@@ -11,7 +11,7 @@ require_once('UKMconfig.inc.php');
 require_once('UKM/postgres.class.php');
 require_once('UKM/RFID/scanner.collection.php');
 
-POSTGRES::connect( PG_RFID_USER, PG_RFID_PASS, PG_RFID_DB );
+UKMNorge\RFID\POSTGRES::connect( PG_RFID_USER, PG_RFID_PASS, PG_RFID_DB );
 
 $log = UKMNorge\UKMrfid::getLogger();
 
