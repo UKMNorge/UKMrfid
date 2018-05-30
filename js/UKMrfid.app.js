@@ -81,7 +81,9 @@ $(document).ready(function() {
 		e.preventDefault();
 		var rfidValue = $("#rfidValue").val();
 		console.log("Scanned: "+rfidValue);
+		
 		$("#rfidValueForm")[0].reset();
+
 		Auth.scan(rfidValue, function(response) {
 			console.log(response.data);
 			if(response.success) {

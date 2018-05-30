@@ -25,24 +25,11 @@ class UKMrfid {
 			// If there are only INFO's or lower, don't log to file.
 			$fileHandler = new \Monolog\Handler\StreamHandler('/tmp/ukmrfid/app.log', \Monolog\Logger::DEBUG);
 
-			$fingersCrossedHandler = new \Monolog\Handler\FingersCrossedHandler($fileHandler, \Monolog\Logger::WARNING);
-
-			// Default log level for the Slack Handler to be triggered is CRITICAL
-			$slackHandler = new \Monolog\Handler\SlackWebhookHandler(SLACK_UKMRFID_WEBHOOK_URL, SLACK_UKMRFID_CHANNEL, 'UKMrfid');
-			
-			// Add links to the source code for Slack-integration.
-			#$slackHandler->pushProcessor(new \UKMNorge\GithubLinkProcessor('AsgeirSH', 'UKMrfid'));
-
-			// A Deduplicatior will limit the amount of slack notifications sent to one per minute.
-			/*$slackDeduplicator = new \Monolog\Handler\DeduplicationHandler(
-				$slackHandler, 
-				"/tmp/ukmrfid/deduplication_logs",
-				\Monolog\Logger::CRITICAL
-			);*/
-
+			/*$fingersCrossedHandler = new \Monolog\Handler\FingersCrossedHandler($fileHandler, \Monolog\Logger::WARNING);
+*/
 			// Add handlers - the last one added will be the first to receive events.
 			$log->pushHandler($fileHandler);
-			//$log->pushHandler($slackDeduplicator);
+			//$log->pushHandler($fingersCrossedHandler);
 
 			// Add processor for line information
 			$log->pushProcessor(new \Monolog\Processor\IntrospectionProcessor());
