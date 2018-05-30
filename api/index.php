@@ -30,19 +30,18 @@ if('POST' == $_SERVER['REQUEST_METHOD']) {
 		if ('registerStation' == $endpoint || 'verifyStation' == $endpoint) {
 			require_once('../ajax/'. $endpoint .'.controller.php');	
 		}
-		elseif( $scanner = $scanners->getByGUID($guid) && $scanner->isVerified() ) {
-			$controller = '../ajax/'. $endpoint .'.controller.php';
-			if( !file_exists( $controller ) ) {
-				$JSON->success = false;
-				$JSON->message = 'Mangler kontroller '.$controller.'!';
-			} 
-			else {
-				require_once('../ajax/'. $endpoint .'.controller.php');
-			}
-		}
 		else {
-			$JSON->success = false;
-			$JSON->message = 'Stasjonen du bruker har ikke tilgang enda - kontakt UKM Support';
+			$scanner = $scanners->getByGUID($guid);
+			if ( $scanner->isVerified() ) {
+				$controller = '../ajax/'. $endpoint .'.controller.php';
+				if( !file_exists( $controller ) ) {
+					$JSON->success = false;
+					$JSON->message = 'Mangler kontroller '.$controller.'!';
+				} 
+				else {
+					require_once('../ajax/'. $endpoint .'.controller.php');
+				}
+			}
 		}
 	} catch( Exception $e ) {
 		$JSON->success = false;
