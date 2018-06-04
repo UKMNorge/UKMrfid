@@ -92,7 +92,7 @@ var Auth = function ( ) {
 		},
 
 		poll: function(postData, callback) {
-			console.log("Polling...");
+			console.log('Polling '+ postData.endpoint +'...');
 			var activePolling = true;
 			postData['guid'] = self.getGUID();
 			$.post({

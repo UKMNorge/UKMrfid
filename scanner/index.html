@@ -4,39 +4,35 @@
 		<meta charset="UTF-8">
 		<title>UKMrfid</title>
 		
-		<script>
-			function playAllowed(){
-				var audio = document.getElementById("allowedAudio");
-				audio.play();
-			}
-			function playDenied(){
-				var audio = document.getElementById("deniedAudio");
-				audio.play();
-			}
-		</script>
 		<script src="../js/jquery-3.3.1.min.js"></script>
 		<script src="../js/jquery-ui.min.js"></script>
 		<script src="../js/bootstrap.min.js"></script>
 		<!-- <script src="js/emitter.js"></script> -->
-		<script src="../js/UKMrfid.app.js"></script>
 		<script src="../js/auth.js"></script>
 		<script src="../js/sha1.min.js"></script>
+		<script src="../js/UKMrfid.app.js"></script>
 		<link rel="stylesheet" href="../css/bootstrap.min.css" />
 		<link rel="stylesheet" href="../css/jquery-ui.min.css" />
 		<link rel="stylesheet" href="../css/font.css" />
 		
 		<style>
-			.jumbotron {
-				background: #f26d15;
-				color: #fff;
+			html {
+				font-size: 24px;
 			}
-			h1.theQuestion {
-				margin-bottom: 5rem;
-				margin-top: 5rem;
-				font-size: 7rem;
-				text-rendering: optimizeLegibility;
-				font-variation-settings: initial;
-			}			
+			
+			body {
+				color: #fff;
+				background: #f26d15;
+			}
+			
+			#viewBeepedGreen {
+				background: #35c041;
+			}
+			
+			#viewBeepedRed {
+				background: #c91a1a;
+			}
+
 			.icon {
 				font-size: 21rem;
 			}
@@ -44,22 +40,6 @@
 				text-align: center;
 			}
 			
-			.footer {
-				position: absolute;
-				bottom: 0;
-				right: 0;
-				padding: 1em;
-			}
-			.container-footer {
-				position: absolute;
-				bottom: 2.8rem;
-			}			
-			.counter {
-				font-size: 4em;
-				font-weight: bold;
-				margin-top: 1rem;
-			}
-
 			.centered {
 			  position: fixed;
 			  top: 50%;
@@ -67,64 +47,99 @@
 			  /* bring your own prefixes */
 			  transform: translate(0%, -100%);
 			}
+			
+			.UKMrfidView {
+				height: 100vh;
+			}
+			
+			.bold {
+				font-weight: bold;
+			}
+			.fullwidth {
+				width: 100%;
+			}
 		</style>
 	</head>
 
 	<body>
-		<audio id="allowedAudio" src="../audio/success.mp3"></audio>
-		<audio id="deniedAudio" src="../audio/error.mp3"></audio>
+		<audio id="audiofile_success" src="../audio/success.mp3"></audio>
+		<audio id="audiofile_error" src="../audio/error.mp3"></audio>
 
 		<div class="UKMrfidView" id="viewStart" style="display:none;">
-			<div class="jumbotron jumbotron-fluid centered">
-				<div class="container">
-					<h1 class="display-4">Registrerer enheten...</h1>
-					<p class="lead" id="registrationStatus">
-					</p>
-
+			<div class="container d-flex h-100">
+				<div class="row justify-content-center align-self-center">
+					<div class="col-12">
+							<h1>Registrerer enheten...</h1>
+							<p class="lead" id="registrationStatus"></p>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 		<div class="UKMrfidView" id="viewRegisteredSuccess" style="display:none;">
-			<div class="jumbotron jumbotron-fluid centered">
-				<div class="container">
-					<h1 class="display-4">Stasjon må godkjennes</h1>
-					<p class="lead">Stasjonen er registrert, og venter nå på godkjenning av en administrator. Oppgi koden under til support.</p>
-					<span id="stationCode"></span>
+			<div class="container d-flex h-100">
+				<div class="row justify-content-center align-self-center">
+					<div class="col-12">
+						<h1>Stasjon må godkjennes</h1>
+						<p class="lead">Stasjonen er registrert i systemet, men venter på godkjenning fra en administrator. Oppgi koden under til support.</p>
+						<span class="bold" id="stationCode"></span>
+					</div>
 				</div>
 			</div>
 		</div>
 		<div class="UKMrfidView" id="viewRegisteredFail" style="display:none;">
-			<div class="jumbotron jumbotron-fluid centered">
-				<div class="container">
-					<h1 class="display-4">Stasjonen feilet å registrere seg</h1>
-					<p class="lead">Oops! Noe gikk galt med registreringen. Oppgi følgende feilmelding til support:</p>
-					<span id="registrationError">Fikk ikke kontakt med server!
-					</p>
+			<div class="container d-flex h-100">
+				<div class="row justify-content-center align-self-center">
+					<div class="col-12">
+						<h1>Stasjonen feilet å registrere seg</h1>
+						<p class="lead">Oops! Noe gikk galt med registreringen. Oppgi følgende feilmelding til support:</p>
+						<p id="registrationError">
+							Fikk ikke kontakt med server!
+						</p>
+					</div>
 				</div>
 			</div>
 		</div>
 		<div class="UKMrfidView" id="viewReadyForBeeping" style="display:none;">
-			<div class="jumbotron jumbotron-fluid centered">
-				<div class="container">
-					<h1 class="display-4">Scann kodebrikke</h1>
-					<p class="lead"></p>
-					<form id="rfidValueForm">
-						<input type="text" id="rfidValue" name="rfidValue" class="form-control" autocomplete="off" style="visibility: visible;">
-					</form>
+			<div class="container d-flex h-100">
+				<div class="row justify-content-center align-self-center fullwidth">
+					<div class="col-12">
+						<h1>Scann armbånd</h1>
+						<p class="lead"></p>
+						<form id="rfidValueForm">
+							<div class="form-group">
+								<input type="text" id="rfidValue" name="rfidValue" class="form-control" autocomplete="off" style="visibility: visible;" />
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
 		<div class="UKMrfidView" id="viewBeepedGreen" style="display:none;">
-			<div class="jumbotron jumbotron-fluid centered" style="background-color: green;">
-				<div class="container">
-					<h1 class="display-4">Scann OK - Grønt lys!</h1>
+			<div class="container d-flex h-100">
+				<div class="row justify-content-center align-self-center fullwidth">
+					<div class="col-12">
+						<h1 id="welcomeName">Velkommen!</h1>
+					</div>
 				</div>
 			</div>
 		</div>
 		<div class="UKMrfidView" id="viewBeepedRed" style="display:none;">
-			<div class="jumbotron jumbotron-fluid centered" style="background-color: red;">
-				<div class="container">
-					<h1 class="display-4">Ooops, du har ikke tilgang!</h1>
+			<div class="container d-flex h-100">
+				<div class="row justify-content-center align-self-center">
+					<div class="col-12 px-0">
+						<h1>STOPP!</h1>
+						<h2>Beklager, du har ikke tilgang.</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="UKMrfidView" id="viewPleaseHold" style="display:none;">
+			<div class="container d-flex h-100">
+				<div class="row justify-content-center align-self-center fullwidth">
+					<div class="col-12">
+						<h1 id="welcomeName">Vent litt mens vi sjekker..</h1>
+					</div>
 				</div>
 			</div>
 		</div>
