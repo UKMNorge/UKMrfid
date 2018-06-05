@@ -35,6 +35,8 @@ var GUI = function( $, _class ){
 		},
 		
 		playSound: function( sound ) {
+			console.log( 'PLAY SOUND: ');
+			console.log( sound );
 			var audio = document.getElementById( 'audiofile_'+ sound );
 			if (audio.paused) {
 				audio.play();
@@ -106,12 +108,16 @@ var ScannerApp = function( GUI, Auth) {
 			switch( response.herd_foreign_id ) {
 				case 'UKM-festivalutvikler':
 					$('#welcomeName').html('Husk å puste '+ response.person +'!');
+					GUI.playSound('success_in_utvikler');
 					break;
 				case 'landsbyhovding':
 					$('#welcomeName').html('Hei sjef!');
+					GUI.playSound('marita_in');
 					break;
 				default:
 					$('#welcomeName').html('Velkommen hjem, '+ response.person +'!');
+					console.log('SOUND', Math.floor((Math.random() * 3) + 1 ));
+					GUI.playSound('success_in_'+ Math.floor((Math.random() * 3) + 1));
 					break;
 			}
 			GUI.playSound('success');
@@ -121,15 +127,17 @@ var ScannerApp = function( GUI, Auth) {
 			switch( response.herd_foreign_id ) {
 				case 'UKM-festivalutvikler':
 					$('#welcomeName').html('Have fun out there '+ response.person +'!');
+					GUI.playSound('success_out');
 					break;
 				case 'UKM-hovding':
 					$('#welcomeName').html('Be back soon!');
+					GUI.playSound('marita_out');
 					break;
 				default:
 					$('#welcomeName').html('God tur, '+ response.person +'!');
+					GUI.playSound('error');
 					break;
 			}
-			GUI.playSound('error');
 		},
 		
 		startPolling: function() {
