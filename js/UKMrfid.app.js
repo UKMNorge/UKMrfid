@@ -50,6 +50,7 @@ var GUI = function( $, _class ){
 };
 
 var ScannerApp = function( GUI, Auth) {
+	var nextGoToReadyTimeout = null;
 	
 	var self = {
 		init: function() {
@@ -98,7 +99,7 @@ var ScannerApp = function( GUI, Auth) {
 		},
 		
 		goToReadyIn: function( milliseconds ) {
-			setTimeout(function() {
+			nextGoToReadyTimeout = setTimeout(function() {
 				GUI.showView('ReadyForBeeping');
 				$("#rfidValue").focus();
 			}, milliseconds);
@@ -115,12 +116,12 @@ var ScannerApp = function( GUI, Auth) {
 					GUI.playSound('marita_in');
 					break;
 				default:
+					var sound = getRandomInt(1,3);
 					$('#welcomeName').html('Velkommen hjem, '+ response.person +'!');
-					console.log('SOUND', Math.floor((Math.random() * 3) + 1 ));
-					GUI.playSound('success_in_'+ Math.floor((Math.random() * 3) + 1));
+					console.log('SOUND', sound );
+					GUI.playSound('success_in_'+ sound);
 					break;
 			}
-			GUI.playSound('success');
 		},
 		
 		successOut: function( response ) {
@@ -168,6 +169,10 @@ var ScannerApp = function( GUI, Auth) {
 	
 }( new GUI( jQuery, 'UKMrfid'), new Auth() );
 
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 // Start app @ pageload
 $(document).ready(function(){
