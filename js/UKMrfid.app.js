@@ -107,18 +107,18 @@ var ScannerApp = function( GUI, Auth) {
 		
 		successIn: function( response ) {
 			switch( response.herd_foreign_id ) {
+				case 'UKM-team':
 				case 'UKM-festivalutvikler':
 					$('#welcomeName').html('Husk å puste '+ response.person +'!');
 					GUI.playSound('success_in_utvikler');
 					break;
-				case 'landsbyhovding':
-					$('#welcomeName').html('Hei sjef!');
+				case 'UKM-hovding':
+					$('#welcomeName').html('Marita!' + ' <img src="/img/emoji-lion.png" style="height: 1em;" />');
 					GUI.playSound('marita_in');
 					break;
 				default:
 					var sound = getRandomInt(1,3);
 					$('#welcomeName').html('Velkommen hjem, '+ response.person +'!');
-					console.log('SOUND', sound );
 					GUI.playSound('success_in_'+ sound);
 					break;
 			}
@@ -126,6 +126,7 @@ var ScannerApp = function( GUI, Auth) {
 		
 		successOut: function( response ) {
 			switch( response.herd_foreign_id ) {
+				case 'UKM-team':
 				case 'UKM-festivalutvikler':
 					$('#welcomeName').html('Have fun out there '+ response.person +'!');
 					GUI.playSound('success_out');
@@ -136,7 +137,7 @@ var ScannerApp = function( GUI, Auth) {
 					break;
 				default:
 					$('#welcomeName').html('God tur, '+ response.person +'!');
-					GUI.playSound('error');
+					GUI.playSound('success_out');
 					break;
 			}
 		},
