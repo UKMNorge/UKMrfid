@@ -106,22 +106,51 @@ var ScannerApp = function (GUI, Auth) {
 		},
 
 		successIn: function (response) {
+			var message = 'Velkommen hjem, ' + response.person + '!';
+			var sound = 'success_in_1';
 			switch (response.herd_foreign_id) {
 				case 'UKM-team':
 				case 'UKM-festivalutvikler':
-					$('#welcomeName').html('Husk å puste '+ response.person +'!');
-					GUI.playSound('success_in_utvikler');
+					message = 'Husk å puste ' + response.person + '!';
+					sound = 'success_in_utvikler';
 					break;
 				case 'UKM-hovding':
-					$('#welcomeName').html('Marita!' + ' <img src="/img/emoji-lion.png" style="height: 1em;" />');
-					GUI.playSound('marita_in');
+					message = 'Marita!' + ' <img src="/img/emoji-lion.png" style="height: 1em;" />';
+					sound = 'marita_in';
+					break;
+				case 'UKM-person-alva':
+					sound = 'alva_in';
+					break;
+				case 'UKM-person-eli':
+					message = 'El jefe!';
+					sound = 'eli_in';
+					break;
+				case 'UKM-person-ina':
+					sound = 'ina_in';
+					break;
+				case 'UKM-person-ingrid':
+					message = 'Psst! I got some info for you..';
+					sound = 'ingrid_in';
+					break;
+				case 'UKM-person-magnus':
+					sound = 'magnus_in';
+					break;
+				case 'UKM-media-veteran':
+					sound = 'media_in';
+					break;
+				case 'UKM-person-mia':
+					sound = 'mia_in';
+					break;
+				case 'UKM-person-oskar':
+					message = 'Prosit!';
+					sound = 'oskar_in';
 					break;
 				default:
-					var sound = getRandomInt(1,3);
-					$('#welcomeName').html('Velkommen hjem, '+ response.person +'!');
-					GUI.playSound('success_in_'+ sound);
+					var sound = getRandomInt(1, 3);
 					break;
 			}
+			$('#welcomeName').html(message);
+			GUI.playSound(sound);
 		},
 
 		successOut: function (response) {
@@ -134,6 +163,10 @@ var ScannerApp = function (GUI, Auth) {
 				case 'UKM-hovding':
 					$('#welcomeName').html('Be back soon!');
 					GUI.playSound('marita_out');
+					break;
+				case 'UKM-person-oskar':
+					$('#welcomeName').html('Skal du dra alt nå?');
+					GUI.playSound('oskar_out');
 					break;
 				default:
 					$('#welcomeName').html('God tur, ' + response.person + '!');
