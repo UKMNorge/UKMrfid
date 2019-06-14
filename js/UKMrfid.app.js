@@ -114,7 +114,7 @@ var ScannerApp = function (GUI, Auth) {
 					message = 'Husk å puste ' + response.person + '!';
 					sound = 'success_in_utvikler';
 					break;
-				case 'UKM-hovding':
+				case 'UKM-person-marita':
 					message = 'Marita!' + ' <img src="/img/emoji-lion.png" style="height: 1em;" />';
 					sound = 'marita_in';
 					break;
@@ -160,7 +160,7 @@ var ScannerApp = function (GUI, Auth) {
 					$('#welcomeName').html('Have fun out there ' + response.person + '!');
 					GUI.playSound('success_out');
 					break;
-				case 'UKM-hovding':
+				case 'UKM-person-marita':
 					$('#welcomeName').html('Be back soon!');
 					GUI.playSound('marita_out');
 					break;
