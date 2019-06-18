@@ -146,7 +146,7 @@ var ScannerApp = function (GUI, Auth) {
 					sound = 'oskar_in';
 					break;
 				default:
-					var sound = getRandomInt(1, 3);
+					var sound = 'success_in_'+ getRandomInt(1, 3);
 					break;
 			}
 			$('#welcomeName').html(message);
