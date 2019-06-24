@@ -17,7 +17,8 @@ $JSON->data = $_POST;
 $rfid = $_POST['rfidValue'];
 
 // Lag hash av rfid og IP for å sjekke om dette er en OK request
-$hash = sha1($rfid + $guid);
+//$hash = sha1($rfid + $guid);
+$hash = "";
 if ( true || $hash == $_POST['hash'] ) {
 	try {
 		$scan = Scan::create($rfid, $scanner->getDirection(), $scanner->getAreaId());
