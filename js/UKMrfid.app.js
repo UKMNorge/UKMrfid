@@ -121,6 +121,10 @@ var ScannerApp = function (GUI, Auth) {
 				case 'UKM-person-alva':
 					sound = 'alva_in';
 					break;
+				case 'UKM-person-ingeborg':
+					message = "Ingeborg!";
+					sound = 'ingeborg_in';
+					break;
 				case 'UKM-person-eli':
 					message = 'El jefe!';
 					sound = 'eli_in';
