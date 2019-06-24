@@ -21,7 +21,7 @@ $rfid = $_POST['rfidValue'];
 $hash = "";
 if ( true || $hash == $_POST['hash'] ) {
 	try {
-		$scan = Scan::create($rfid, $scanner->getDirection(), $scanner->getAreaId());
+		$scan = Scan::create($rfid, $scanner->getDirection(), $scanner);
 		$person = PersonColl::getByRFID( $rfid );
 		$JSON->person = $person->getFirstName();
 		$JSON->herd = $person->getHerd()->getName();
