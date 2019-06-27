@@ -110,9 +110,13 @@ var ScannerApp = function (GUI, Auth) {
 			var sound = 'success_in_1';
 			switch (response.herd_foreign_id) {
 				case 'UKM-team':
-				case 'UKM-festivalutvikler':
 					message = 'Husk å puste ' + response.person + '!';
 					sound = 'success_in_utvikler';
+					break;
+				case 'UKM-festivalutvikler':
+					message = 'Husk å puste ' + response.person + '!';
+					//sound = 'success_in_utvikler';
+					sound = 'trumpet_in';
 					break;
 				case 'UKM-person-marita':
 					message = 'Marita!' + ' <img src="/img/emoji-lion.png" style="height: 1em;" />';
@@ -127,14 +131,16 @@ var ScannerApp = function (GUI, Auth) {
 					break;
 				case 'UKM-person-eli':
 					message = 'El jefe!';
-					sound = 'eli_in';
+					//sound = 'eli_in';
+					soudn = 'imperial-march';
 					break;
 				case 'UKM-person-ina':
 					sound = 'ina_in';
 					break;
 				case 'UKM-person-ingrid':
 					message = 'Psst! I got some info for you..';
-					sound = 'ingrid_in';
+					//sound = 'ingrid_in';
+					sound = 'ingrid_in_2';
 					break;
 				case 'UKM-person-magnus':
 					sound = 'magnus_in';
@@ -163,6 +169,10 @@ var ScannerApp = function (GUI, Auth) {
 				case 'UKM-festivalutvikler':
 					$('#welcomeName').html('Have fun out there ' + response.person + '!');
 					GUI.playSound('success_out');
+					break;
+				case 'UKM-person-eli':
+					$('#welcomeName').html('Skal du dra alt nå?');
+					GUI.playSound('dramatic-in');
 					break;
 				case 'UKM-person-marita':
 					$('#welcomeName').html('Be back soon!');
